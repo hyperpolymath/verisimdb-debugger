@@ -1,0 +1,52 @@
+# AI Assistant Specification - VeriSimDB Debugger
+
+## Status: Alpha Development (5% complete, not functional)
+
+**VeriSimDB Debugger** is a Terminal UI (TUI) debugger for VeriSimDB, planned for v2.0 release. Currently in **alpha scaffolding phase** - project structure exists but no working features yet.
+
+## Machine-Readable Artefacts
+
+Check `.machine_readable/` directory for structured project context:
+
+- **STATE.scm** - Current state (5% complete, blockers: VeriSimDB API not ready)
+- **ECOSYSTEM.scm** - Relationship to VeriSimDB (debugging/observability layer)
+
+Read STATE.scm first to understand current blockers before proposing work.
+
+## Key Blockers (as of 2026-01-22)
+
+1. **VeriSimDB v1.0 API not implemented** - No API to connect to
+2. **API specification not finalized** - Don't know what endpoints exist
+3. **TUI design not prototyped** - Unclear what views to build
+
+## Tech Stack
+
+- **Language**: Rust (edition 2024)
+- **TUI**: Ratatui + Crossterm
+- **Async**: Tokio
+- **HTTP**: reqwest
+
+## What This Tool Will Do (v2.0)
+
+- Query tracing (step through VQL execution, timing breakdowns)
+- Drift visualization (cross-modal drift detection with diff views)
+- Proof inspection (ZKP proof details, verification steps, circuit visualization)
+- Federation debugging (multi-store coordination traces, consensus logs)
+
+## What NOT to Do Yet
+
+- Don't implement TUI views without API spec
+- Don't write API client code without VeriSimDB v1.0
+- Don't create mock data structures that may not match real API
+
+## Next Steps (After VeriSimDB v1.0)
+
+1. Get VeriSimDB API specification
+2. Design TUI mockups
+3. Implement API client with mock server
+4. Build TUI views incrementally
+
+---
+
+**Parent Project**: [VeriSimDB](https://github.com/hyperpolymath/verisimdb)
+**License**: PMPL-1.0-or-later

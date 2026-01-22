@@ -1,0 +1,145 @@
+// SPDX-License-Identifier: PMPL-1.0-or-later
+
+= VeriSimDB Debugger
+:toc:
+:toc-placement!:
+
+[IMPORTANT]
+====
+**Status: Alpha Development (5% complete, not functional)**
+
+This project is in early scaffolding phase. Project structure exists but no working features yet.
+
+**Current blockers:**
+
+* VeriSimDB v1.0 API not yet implemented
+* API specification not finalized
+* TUI design not prototyped
+
+See link:.machine_readable/STATE.scm[STATE.scm] for detailed project state.
+====
+
+**Interactive debugger and visualization tool for VeriSimDB queries, drift detection, and proof inspection.**
+
+toc::[]
+
+== Overview
+
+VeriSimDB Debugger is a terminal UI (TUI) tool for debugging VeriSimDB queries, visualizing drift across modalities, and inspecting ZKP proofs.
+
+**Target Version:** v2.0 (planned)
+
+== Features (Planned for v2.0)
+
+=== Query Tracing
+- Step-through VQL query execution
+- Show query plan (optimized AST)
+- Timing breakdown (parse, type check, execute)
+- Store communication logs
+
+=== Drift Visualization
+- Cross-modal drift detection
+- Diff view for conflicting values
+- Repair strategy suggestions
+- Drift history timeline
+
+=== Proof Inspection
+- ZKP proof details (contract, witness, verification)
+- Proof generation trace
+- Verification steps
+- Circuit visualization (for SNARK-based proofs)
+
+=== Federation Debugging
+- Multi-store query coordination
+- Consensus protocol trace
+- Network latency visualization
+- Store availability monitoring
+
+== Architecture
+
+```
+verisimdb-debugger/
+├── src/
+│   ├── main.rs              # CLI entry point
+│   ├── tui/                 # Terminal UI (ratatui)
+│   │   ├── app.rs           # Main app state
+│   │   ├── query_trace.rs   # Query trace view
+│   │   ├── drift_view.rs    # Drift visualization
+│   │   └── proof_view.rs    # Proof inspection
+│   ├── trace_viewer.rs      # Query execution tracing
+│   ├── drift_visualizer.rs  # Cross-modal drift analysis
+│   └── proof_inspector.rs   # ZKP proof details
+└── tests/
+```
+
+== Installation (v2.0)
+
+[source,bash]
+----
+cargo install verisimdb-debugger
+
+# Or from source:
+git clone https://github.com/hyperpolymath/verisimdb-debugger.git
+cd verisimdb-debugger
+cargo build --release
+----
+
+== Usage (v2.0)
+
+=== Interactive Mode
+
+[source,bash]
+----
+verisimdb-debugger --connect localhost:8080
+
+# Inside debugger:
+> trace SELECT GRAPH, DOCUMENT FROM HEXAD abc-123
+> show-drift abc-123
+> inspect-proof abc-123 CITATION
+----
+
+=== CLI Mode
+
+[source,bash]
+----
+# Trace a query
+verisimdb-debugger trace query.vql
+
+# Check for drift
+verisimdb-debugger drift --hexad abc-123
+
+# Verify proof
+verisimdb-debugger proof --hexad abc-123 --contract CITATION
+----
+
+== Development
+
+**Status:** v2.0 planning phase (not yet implemented)
+
+**Dependencies:**
+- Rust edition 2024
+- ratatui (TUI framework)
+- tokio (async runtime)
+- VeriSimDB v1.x (for API communication)
+
+== Relationship to VeriSimDB
+
+This debugger is a **separate tool** from the core VeriSimDB database. It connects to a running VeriSimDB instance via its API.
+
+**VeriSimDB:** The database (stores data, executes queries)
+**verisimdb-debugger:** The debugger (traces execution, visualizes drift)
+
+See link:https://github.com/hyperpolymath/verisimdb[verisimdb] for the main database.
+
+== Contributing
+
+See link:CONTRIBUTING.adoc[CONTRIBUTING.adoc] for guidelines.
+
+== License
+
+PMPL-1.0-or-later
+
+== References
+
+- link:https://github.com/hyperpolymath/verisimdb[VeriSimDB] - The database being debugged
+- link:https://github.com/ratatui/ratatui[ratatui] - Terminal UI framework
